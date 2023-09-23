@@ -3,8 +3,12 @@ let positionLong = 71;
 let addressLat = 9;
 let addressLong = 6;
 
-let distance = (((positionLong - addressLong) ** 2) + 
-    ((positionLat - addressLat) ** 2)) ** (1/2);
+let Long = positionLong - addressLong;
+let Lat = positionLat - addressLat;
 
-console.log(distance);
+let res = Math.sqrt(Long ** 2 + Lat ** 2);
+
+let distance = Math.round(res);
+
+console.log(`Your distance = ${distance} km`);
 
