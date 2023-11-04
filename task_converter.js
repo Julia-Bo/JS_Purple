@@ -1,5 +1,5 @@
 /*
-написать функцию которая получает на взод строку с:
+написать функцию которая получает на вход строку с:
 - суммой стредвств - 1000;
 - валютой - руб;
 - целевой валютой - $;
@@ -9,21 +9,37 @@
 
 */
 
+const USD_TO_RUB = 97.41;
+const EUR_TO_RUB = 103.16;
+const EUR_TO_USD = EUR_TO_RUB / USD_TO_RUB;
+
 function con(sum, originalCurrency, targetСurrency) {
-    (originalCurrency === 'rub' && targetСurrency === 'usd') ? 
-        res = sum / 97.41 : 
-    (originalCurrency === 'usd' && targetСurrency === 'rub') ?
-        res = sum * 97.41 :
-    (originalCurrency === 'rub' && targetСurrency === 'eur') ?
-        res = sum / 103.16 :
-    (originalCurrency === 'eur' && targetСurrency === 'rub') ?  
-        res = sum * 103.16  :
-    (originalCurrency === 'usd' && targetСurrency === 'eur') ?
-        res = sum / 1.05 :
-    (originalCurrency === 'eur' && targetСurrency === 'usd') ?
-        res = sum * 1.05 :
-        res = null;
-    return res;
+    switch (true) {
+        case originalCurrency === 'rub':
+            if (targetСurrency === 'usd') {
+                return sum / USD_TO_RUB;
+            } else if (targetСurrency === 'eur') {
+                return sum / EUR_TO_RUB;
+            }
+            break;
+        case originalCurrency === 'usd':
+            if (targetСurrency === 'rub') {
+                return sum * USD_TO_RUB;
+            } else if (targetСurrency === 'eur') {
+                return sum / EUR_TO_USD;
+            }
+            break;
+        case originalCurrency === 'eur':
+            if (targetСurrency === 'rub') {
+                return sum * EUR_TO_RUB;
+            } else if(targetСurrency === 'usd') {
+                return sum * EUR_TO_USD;
+            }
+            break;
+    }
+
+
+    return null;
 }
 
-console.log(con(1000, 'eur', 'usd'))
+console.log(con(1000, 'usd', 'rub'))
