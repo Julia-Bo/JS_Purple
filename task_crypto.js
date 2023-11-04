@@ -1,67 +1,66 @@
-// const word = 'password';
-const word = 'contract';
-// const word = 'feedback';
-// const word = 'producer';
-
+const word = 'blackberry';
 
 function crypto(word) {
-    const code = word.split('');
-    if (code.length < 8) {
-        return console.log('the password must have more than 8 symbol');
-    }
+    let wordArr = word.split('');
+    const halfPart = wordArr.length / 2;
+
+    const firstPart = wordArr.slice(0, halfPart);
+    let secondPart = wordArr.splice(halfPart, wordArr.length);
 
     switch (true) {
-        case code.includes('a'):
-            const a = code.indexOf('a');
-            code[a] = '1';
-        case code.includes('b'):
-            const b = code.indexOf('b');
-            code[b] = '2';
-        case code.includes('c'):
-            const c = code.indexOf('c');
-            code[c] = '3';
+        case firstPart.includes ('a'):
+            const a = firstPart.indexOf('a');
+            firstPart[a] = '1';
+        case firstPart.includes ('b'):
+            const b = firstPart.indexOf('b');
+            firstPart[b] = '2';
+        case firstPart.includes('c'):
+            const c = firstPart.indexOf('c');
+            firstPart[c] = '3';
     }
 
+    firstPart.unshift(firstPart[firstPart.length - 1]);
+    firstPart.pop();
+    secondPart.reverse();
+    const[one, ...other] = secondPart;
+    secondPart = [...other, ...one];
+    
+    wordArr = ([...secondPart,...firstPart]).join('')
 
-    code.unshift(code[2], code[3]);
-    code.push(code[6]);
-    code.splice(4, 3);
-    code.reverse();
-    const newCode = code.join('');
-    console.log(newCode);
-    return newCode;
+    return wordArr
 }
 
 
-function check(code, word) {
-    const decode = code.split('');
-    const wordArr = word.split('');
-    if (decode.length !== wordArr.length){
-        return console.log (false);
-    }
-
-    decode.reverse();
-    decode.unshift(decode[2], decode[3]);
-    decode.splice(4, 2);
-    decode.push(decode[4], decode[5], decode[6]); 
-    decode.splice(4, 3);
+function check (code, word) {
+    let codeArr = code.split('');
+    const halfPart = Math.ceil(codeArr.length / 2);
+    
+    const firstPart = codeArr.slice(0, halfPart);
+    const secondPart = codeArr.slice(halfPart, codeArr.length);
+    
+    firstPart.unshift(firstPart[firstPart.length - 1]);
+    firstPart.pop();
+    firstPart.reverse();
+    secondPart.push(secondPart[0]);
+    secondPart.shift();
 
     switch (true) {
-        case decode.includes('1'):
-            const a = decode.indexOf('1');
-            decode[a] = 'a';
-        case decode.includes('2'):
-            const b = decode.indexOf('2');
-            decode[b] = 'b';
-        case decode.includes('3'):
-            const c = decode.indexOf('3');
-            decode[c] = 'c';
-        }
-    
-    console.log(decode);
-
-            return console.log((decode.join('')) === word ? true : false);
+        case secondPart.includes('1'):
+            const a = secondPart.indexOf('1');
+            secondPart[a] = 'a';
+        case secondPart.includes('2'):
+            const b = secondPart.indexOf('2');
+            secondPart[b] = 'b';
+        case secondPart.includes('3'):
+            const c = secondPart.indexOf('3');
+            secondPart[c] = 'c';
     }
+   
+    codeArr = ([...secondPart, ...firstPart]).join('');
 
-crypto(word);
-check(crypto(word),word);
+    return codeArr === word ? true : false;
+}
+
+
+console.log(crypto(word));
+console.log(check (crypto(word), word));
