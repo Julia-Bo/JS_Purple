@@ -1,4 +1,4 @@
-const word = 'blackberry';
+const word = '32hello world 4444';
 
 function crypto(word) {
     let wordArr = word.split('');
@@ -7,27 +7,16 @@ function crypto(word) {
     const firstPart = wordArr.slice(0, halfPart);
     let secondPart = wordArr.splice(halfPart, wordArr.length);
 
-    switch (true) {
-        case firstPart.includes ('a'):
-            const a = firstPart.indexOf('a');
-            firstPart[a] = '1';
-        case firstPart.includes ('b'):
-            const b = firstPart.indexOf('b');
-            firstPart[b] = '2';
-        case firstPart.includes('c'):
-            const c = firstPart.indexOf('c');
-            firstPart[c] = '3';
-    }
-
+    firstPart.reverse();
     firstPart.unshift(firstPart[firstPart.length - 1]);
     firstPart.pop();
     secondPart.reverse();
     const[one, ...other] = secondPart;
     secondPart = [...other, ...one];
     
-    wordArr = ([...secondPart,...firstPart]).join('')
+    wordArr = [...secondPart,...firstPart].join('');
 
-    return wordArr
+    return wordArr;
 }
 
 
@@ -43,20 +32,9 @@ function check (code, word) {
     firstPart.reverse();
     secondPart.push(secondPart[0]);
     secondPart.shift();
-
-    switch (true) {
-        case secondPart.includes('1'):
-            const a = secondPart.indexOf('1');
-            secondPart[a] = 'a';
-        case secondPart.includes('2'):
-            const b = secondPart.indexOf('2');
-            secondPart[b] = 'b';
-        case secondPart.includes('3'):
-            const c = secondPart.indexOf('3');
-            secondPart[c] = 'c';
-    }
+    secondPart.reverse();
    
-    codeArr = ([...secondPart, ...firstPart]).join('');
+    codeArr = [...secondPart, ...firstPart].join('');
 
     return codeArr === word ? true : false;
 }
