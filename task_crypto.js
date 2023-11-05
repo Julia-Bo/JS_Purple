@@ -1,4 +1,4 @@
-const word = '32hello world 4444';
+const word = "it's my live, it's now or never";
 
 function crypto(word) {
     let wordArr = word.split('');
@@ -13,7 +13,9 @@ function crypto(word) {
     secondPart.reverse();
     const[one, ...other] = secondPart;
     secondPart = [...other, ...one];
-    
+    const [two, ...another] = secondPart;
+    secondPart = [...another, ...two];
+
     wordArr = [...secondPart,...firstPart].join('');
 
     return wordArr;
@@ -26,7 +28,10 @@ function check (code, word) {
     
     const firstPart = codeArr.slice(0, halfPart);
     const secondPart = codeArr.slice(halfPart, codeArr.length);
+
     
+    firstPart.unshift(firstPart[firstPart.length - 1]);
+    firstPart.pop();
     firstPart.unshift(firstPart[firstPart.length - 1]);
     firstPart.pop();
     firstPart.reverse();
