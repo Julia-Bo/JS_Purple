@@ -21,7 +21,6 @@ function data(arr) {
             if (el.includes('-')) {
                 return el.split('-');
             }
-            return undefined;
         })
         .filter(newEl => {
             if (newEl === undefined) {
@@ -30,17 +29,14 @@ function data(arr) {
 
             const month = Number(newEl[1]);
 
-            if (month <= 0) {
-                return false;
-            }
-            if (month > 12) {
+            if (month <= 0 || month > 12) {
                 return false;
             }
 
             const day = Number(newEl[0]);
             const counDayInMonth = calendar[month - 1]
 
-            if (day <= 0) {
+            if (day <= 0 || day > counDayInMonth) {
                 return false;
             }
             if (day > counDayInMonth) {
